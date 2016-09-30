@@ -50,7 +50,7 @@ Nowadays, fingerprint authentication in mobile devices becomes increasingly popu
 				<div align="center">
 					<img src="image/partial_hr_fp.png" height="315">
 					<br />
-					<i>Figure 1: A comparison of a fingerprint from public database FVC2002 of 500dpi (left), a partial fingerprint cropped from the former one with size of mobile sensor (middle) and a partial high-resolution fingerprint the same size with the middle one but with resolution as high as 2000dpi (right) captured by an optical mobile fingerprint sensor</i>
+					<i><b>Figure 1</b>: A comparison of a fingerprint from public database FVC2002 of 500dpi (left), a partial fingerprint cropped from the former one with size of mobile sensor (middle) and a partial high-resolution fingerprint the same size with the middle one but with resolution as high as 2000dpi (right) captured by an optical mobile fingerprint sensor</i>
 				</div>
 				<p>
 				<br/>
@@ -73,7 +73,7 @@ Optical fingerprint sensor (<b>Fig. 2(a)</b>) can capture fingerprints with reso
 					</div>
 				</div>
 				<div align="center">
-					<i>Figure 2. Optical fingerprint sensor and subtle features on a high-resolution fingerprint</i>
+					<i><b>Figure 2</b>. Optical fingerprint sensor and subtle features on a high-resolution fingerprint</i>
 				</div>
             </div>
             <p>  </p>
@@ -89,7 +89,7 @@ Optical fingerprint sensor (<b>Fig. 2(a)</b>) can capture fingerprints with reso
 				<div align="center">
 					<img src="image/struct.png" height="150">
 					<br />
-					<i>Figure 3: Model structure</i>
+					<i><b>Figure 3</b>: Model structure</i>
 				</div>
 				<br />
 				<p>Experiments on our in-house database show that the proposed model achieves true accept rate of 89.17% where false accept rate is under 0.1%, and equal error rate of 1.94%, which outperforms several state-of-the-art approaches.</p>
@@ -105,7 +105,7 @@ Optical fingerprint sensor (<b>Fig. 2(a)</b>) can capture fingerprints with reso
 				<div align="center">
 					<img src="image/cnn.png" height="400">
 					<br />
-					<i>Figure 4: 38-layer residual network</i>
+					<i><b>Figure 4</b>: 38-layer residual network</i>
 				</div>
             </div>
             <h4>KNN-Triplet Embedding</h4>
@@ -133,7 +133,7 @@ Optical fingerprint sensor (<b>Fig. 2(a)</b>) can capture fingerprints with reso
 				<div align="center">
 					<img src="image/knn_tile.png" height="300">
 					<br />
-					<i>Figure 5: (a) Fingerprints from the same identity in a mini-batch, (b) Positive samples (right five columns) of given anchors (left column) selected by KNN-policy</i>
+					<i><b>Figure 5</b>: (a) Fingerprints from the same identity in a mini-batch, (b) Positive samples (right five columns) of given anchors (left column) selected by KNN-policy</i>
 					<br />
 					<br />
 				</div>
@@ -171,7 +171,7 @@ Optical fingerprint sensor (<b>Fig. 2(a)</b>) can capture fingerprints with reso
                 <p>
                 </p>
 				<div align="center">
-					<i>Table 1: TAR@FAR<=0.1% and EER on our in-house database</i>
+					<i><b>Table 1</b>: TAR@FAR<=0.1% and EER on our in-house database</i>
 					<br />
 				</div>
                 <table class="table table-striped">
@@ -236,10 +236,32 @@ Optical fingerprint sensor (<b>Fig. 2(a)</b>) can capture fingerprints with reso
 					<br />
 					<i>(c)</i>
 					<br />
-					<i>Figure 6: Genuine matches. Matching scores between test image (left one column) and 20 templates (right seven columns) are beneath each template.</i>
+					<i><b>Figure 6</b>: Genuine matches. Matching scores between test image (left one column) and 20 templates (right seven columns) are beneath each template.</i>
 					<br />
 					<br />
 				</div>
+				<div align="center">
+					<img src="image/match_neg1.png" height="600">
+					<br />
+					<i>(a)</i>
+					<br />
+					<img src="image/match_neg2.png" height="600">
+					<br />
+					<i>(b)</i>
+					<br />
+					<img src="image/match_neg3.png" height="600">
+					<br />
+					<i>(c)</i>
+					<br />
+					<i><b>Figure 7</b>: Impostor matches. Matching scores between test image (left one column) and 20 templates (right seven columns) are beneath each template.</i>
+					<br />
+					<br />
+				</div>
+                <p>
+				<b>Fig 7.</b> indicates that matching scores of different identities or different regions are relatively less than same identities with same regions.
+                </p>
+				<br />
+
 				<h4> CNN Visualizations </h4>
 				<div align="center">
 					<img src="image/filter_conv1.png" height="256">
@@ -254,19 +276,20 @@ Optical fingerprint sensor (<b>Fig. 2(a)</b>) can capture fingerprints with reso
 					<br />
 					<i>(b) visualization of feature maps after 'conv1' (right four columns) of a given sample (left one column)</i>
 					<br />
-					<i>Figure 8: Visualizations of 'conv1' (<b>Fig. 4</b>) filters and feature maps after 'conv1'.</i>
+					<i><b>Figure 8</b>: Visualizations of 'conv1' (<b>Fig. 4</b>) filters and feature maps after 'conv1'.</i>
 					<br />
 					<br />
 				</div>
                 <p>
 				<b>Fig 8.</b> indicates that 'conv1' filters response to different directions of ridges and dot-like-features such as pores.
                 </p>
+				<br />
 
 				<h4> Feature Clustering Visualization </h4>
 				<div align="center">
 					<img src="image/tsne.png" height="600">
 					<br />
-					<i>Figure 9: t-sne visualization of features of 30 different identities.</i>
+					<i><b>Figure 9</b>: t-sne visualization of features of 30 different identities.</i>
 					<br />
 					<br />
 				</div>
