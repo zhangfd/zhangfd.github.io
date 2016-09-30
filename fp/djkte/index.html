@@ -166,7 +166,7 @@ Optical fingerprint sensor (<b>Fig. 2(a)</b>) can capture fingerprints with reso
 				<p>Due to lack of publicly available partial high-resolution fingerprint database, we collected an in-house database. We used an optical fingerprint sensor with area 0.24"x0.39". Size of captured images is 480x800. We collected the database of 1800 identities in two steps. In first step, 20 scans on different finger regions were registered as templates for each person. In the second step, same volunteers gave 40 scans with varying finger regions and orientations as test images during matching. Then we randomly sampled 180 identities for testing. For the remaining 1620 identities, we discarded the illegal ones and left 1536 for training.
 				</p>
                 <p>
-				We compared accuracy of the proposed model against minutiae-based algorithm (Fu et al. 2012) (denoted as M) and AKAZE-based algorithm (Mathur et al. 2016) (denoted as A). We also compared accuracy of 3 variants of the proposed model by removing KNN (denoted as OurST), KNN-Triplet (denoted as OurS) and Softmax (denoted as OurKT). Table 1 shows the TAR (True Accept Rate) with FAR (False Accept Rate) under 0.1% and EER (Equal Error Rate) for above algorithms.
+				We compared accuracy of the proposed model against minutiae-based algorithm (<b>Fu et al. 2012</b>) (denoted as M) and AKAZE-based algorithm (<b>Mathur et al. 2016</b>) (denoted as A). We also compared accuracy of 3 variants of the proposed model by removing KNN (denoted as OurST), KNN-Triplet (denoted as OurS) and Softmax (denoted as OurKT). Table 1 shows the TAR (True Accept Rate) with FAR (False Accept Rate) under 0.1% and EER (Equal Error Rate) for above algorithms.
                 </p>
                 <p>
                 </p>
@@ -258,6 +258,10 @@ Optical fingerprint sensor (<b>Fig. 2(a)</b>) can capture fingerprints with reso
 					<br />
 					<br />
 				</div>
+                <p>
+				<b>Fig 8.</b> indicates that 'conv1' filters response to different directions of ridges and dot-like-features such as pores.
+                </p>
+
 				<h4> Feature Clustering Visualization </h4>
 				<div align="center">
 					<img src="image/tsne.png" height="600">
