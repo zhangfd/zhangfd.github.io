@@ -1,8 +1,334 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
   <head>
-    <title>Deep Joint KNN-Triplet Embedding</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+	<script src="js/jquery.min.js"></script>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/custom.css" rel="stylesheet">
+    <title>High-Resolution Mobile Fingerprint Matching via Deep Joint KNN-Triplet Embedding----Fandong Zhang</title>
   </head>
   <body>
-    <h1 align="center">High-Resolution Mobile Fingerprint Matching via Deep Joint KNN-Triplet Embedding</h1>
+    <header class="main">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h1 align="center">High-Resolution Mobile Fingerprint Matching via Deep Joint KNN-Triplet Embedding</h1>
+					<h3 align="center">Fandong Zhang, Jufu Feng*</h3>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="row">
+            <h3> About Me </h3>
+            <hr/>
+            <div class="col-sm-4">
+                <p><b>Fandong Zhang</b></p>
+                <p>PhD Student</p>
+                <p>Phone: +8613621040898</p>
+                <p>Email: zhangfandong@pku.edu.cn</p>
+            </div>
+            <div class="col-sm-8">
+                <p> . </p>
+                <p>Key Laboratory of Machine Perception (Ministry of Education)</p>
+				<p>Department of Machine Intelligence, School of Electronics Engineering and Computer Science (EECS)</p>
+				<p>Peking University, Beijing 100871, China</p>
+            </div>
+        </div>
+        <div class="row">
+            <h3> Background </h3>
+            <hr/>
+            <div class="col-sm-12">
+				<p>
+Nowadays, fingerprint authentication in mobile devices becomes increasingly popular. Limited by space, the fingerprint sensors are miniaturized, which leads to partial fingerprints (<b>Fig. 1</b>). Mobile fingerprint sensors are mainly capacitive, capturing images of resolution around 500dpi (<b>Fig. 1</b>). Partial fingerprint matching is challenging under such resolution because local features are relatively insufficient. Accuracy of minutiae-based fingerprint matching algorithms (<b>Fu et al. 2012</b>) degrades significantly with inadequate number of minutiae. Some other texture descriptors like SIFT (<b>Lowe 2004</b>), AKAZE (<b>Alcantarilla and Solutions 2011</b>) can increase the number of local matching (<b>Yamazaki et al. 2015; Mathur et al. 2016</b>), but they are not designed to make full use of fingerprint structures.
+                </p>
+				<div align="center">
+					<img src="image/partial_hr_fp.png" height="315">
+					<br />
+					<i>Figure 1: A comparison of a fingerprint from public database FVC2002 of 500dpi (left), a partial fingerprint cropped from the former one with size of mobile sensor (middle) and a partial high-resolution fingerprint the same size with the middle one but with resolution as high as 2000dpi (right) captured by an optical mobile fingerprint sensor</i>
+				</div>
+				<p>
+				<br/>
+Optical fingerprint sensor (<b>Fig. 2(a)</b>) can capture fingerprints with resolution as high as 2000dpi (<b>Fig. 1</b>), providing very rich details such as pores, scars and so on (<b>Fig. 2(b)</b>). These features can make up for the insufficiency of minutiae. Moreover, with these details, fingerprint authentication system is much harder to crack. 
+				</p>
+				<div class="row">
+					<div class="col-xs-6">
+						<div align="right">
+						<img src="image/sensor_size.png" height="270">
+						<br />
+						<i>(a) An optical fingerprint sensor with size of 0.39"</i>X<i>0.24";</i>
+						</div>
+					</div>
+					<div class="col-xs-6">
+						<div align="left">
+						<img src="image/hdfp.png" height="270">
+						<br />
+						<i>(b) Minutiae, pores and scars on a partial high-resolution fingerprint.</i>
+						</div>
+					</div>
+				</div>
+				<div align="center">
+					<i>Figure 2. Optical fingerprint sensor and subtle features on a high-resolution fingerprint</i>
+				</div>
+            </div>
+            <p>  </p>
+        </div>
+        <div class="row">
+            <h3> Motivation and Contributions </h3>
+            <hr/>
+            <div class="col-sm-12">
+                <p>Existing fingerprint authentication algorithms are mainly based on minutiae matching (<b>Fu et al. 2012</b>). Their accuracy degrades significantly for partial-to-partial matching when minutiae are relatively inadequate. Subtle features in high-resolution fingerprint images can be helpful to authentication. However, making use of these features is challenging, since they are unstable and irregular. There are very few researches about high-resolution fingerprint matching. (<b>Jain, Chen and Demirkus 2007</b>) proposes methods to detect and match pores. But there are so many kinds of subtle features that it is tedious to design methods to detect and match them one by one.</p>
+				<p>Features learned by deep convolutional neural network (CNN) have been proved more effective and robust than handcrafted features for kinds of image recognition tasks, such as person re-identification, face recognition, and so on. Inspired by these researches, in this paper, we propose a novel model named Deep Joint KNN-Triplet Embedding (<b>Fig. 3</b>) to learn features directly from scratch in an end-to-end manner via a well-designed deep CNN.</p>
+                <p><b>We have two major contributions</b>. First, we employ a deep CNN with triplet loss to embed fingerprint images into an Euclidean space. Moreover, we carefully design a K-Nearest-Neighbor policy to select proper triplets for training. Second, by exploiting the advantages of triplet loss and softmax loss, we joint both losses to make our model converge fast and stably.</p>
+				
+				<div align="center">
+					<img src="image/struct.png" height="150">
+					<br />
+					<i>Figure 3: Model structure</i>
+				</div>
+				<br />
+				<p>Experiments on our in-house database show that the proposed model achieves true accept rate of 89.17% where false accept rate is under 0.1%, and equal error rate of 1.94%, which outperforms several state-of-the-art approaches.</p>
+            </div>
+        </div>
+        <div class="row">
+            <h3> Model </h3>
+            <hr/>
+            <div class="col-sm-12">
+                <p>
+				We design a 38-layer residual neural network (<b>He et al. 2016</b>) (<b>Fig. 4</b>). Let f(x) denote the feature embedding. It embeds a fingerprint image x into a d-dimension Euclidean space. In addition, we constrain ||f(x)||=1 suggested by (Schroff, Kalenichenko, and Philbin 2015). The following sections describe how we employ KNN-Triplet Embedding and Joint Feature Learning.
+                </p>
+				<div align="center">
+					<img src="image/cnn.png" height="400">
+					<br />
+					<i>Figure 4: 38-layer residual network</i>
+				</div>
+            </div>
+            <h4>KNN-Triplet Embedding</h4>
+            <div class="col-sm-12">
+                <p>
+				We first briefly review the standard triplet loss. For an input triplet of images <img src="image/eq_triplet.png" height="27">, where <img src="image/eq_xai.png" height="27">(anchor) and <img src="image/eq_xpi.png" height="27">(positive) come from the same identity while <img src="image/eq_xni.png" height="27">(negative) comes from another identity. Thus we want,
+                </p>
+				<div align="center">
+					<img src="image/eq_1.png" height="30">
+					<br />
+				</div>
+				<p>
+				where <i>alpha</i> is a given constant representing the margin enforced between positive and negative pairs. The loss function of N triplets is defined as,
+				</p>
+				<div align="center">
+					<img src="image/eq_2.png" height="55">
+					<br />
+				</div>
+				<p>
+				Triplet selection policy is quite crucial. Random sampling may result in slow convergence, since most triplets easily satisfy Eq.(1). Online hard example mining can accelerate convergence (Schroff, Kalenichenko, and Philbin 2015). However, a pair of partial fingerprints from the same identity may be captured from different regions of a finger. Triplets containing these couples should be ignored.
+				</p>
+				<p>
+				We employ KNN policy to address such a problem. To create one mini-batch, we firstly sample Nc identities and Np fingerprints per identity as anchors. Then we randomly sample Nn negative fingerprints to select hard negatives. For a given anchor, we only select k nearest positives to generate anchor-positive (a-p) pairs. For each a-p pair, we select the nearest negative sample to the anchor to form a triplet. Therefore we have Nc * Np * k triplets in one mini-batch. <b>Fig. 5</b> shows the results of our KNN-policy. The selected positives are from similar region with the anchors.
+				</p>
+				<div align="center">
+					<img src="image/knn_tile.png" height="300">
+					<br />
+					<i>Figure 5: (a) Fingerprints from the same identity in a mini-batch, (b) Positive samples (right five columns) of given anchors (left column) selected by KNN-policy</i>
+					<br />
+					<br />
+				</div>
+            </div>
+            <h4>Joint Feature Learning</h4>
+            <div class="col-sm-12">
+                <p>
+				Triplet loss can constrain features in Euclidean space. However, it has a relatively slow convergence speed. Here are two possible reasons. First, triplet loss measures relative distances. The optimization objective is relative and uncertain. Gradients of different batches may conflict to each other. Second, inter-class gradient (Eq. (3)) of triplet loss is small when <img src="image/eq_fxai.png" height="27"> and <img src="image/eq_fxni.png" height="27"> are close, which makes harder negative samples separate from other more slowly. Besides, bad parameter initialization or undesirable triplets may lead to a collapsed model f(x)=C, where C is a constant vector.
+				</p>
+				<div align="center">
+					<img src="image/eq_3.png" height="50">
+					<br />
+				</div>
+				<p>
+				Softmax loss doesn't have the above problems, but it can't promise the features extracted from the same identity to be close in Euclidean space, since dissimilar vectors could have same outputs of softmax.
+				</p>
+				<div align="center">
+					<img src="image/eq_4.png" height="30">
+					<br />
+				</div>
+				<p>
+				Therefore, we joint triplet loss and softmax loss (Eq. (4)) to take both advantages, providing not only a constraint in Euclidean space, but a fast and stable convergence.
+				</p>
+			</div>
+        </div>
+        <div class="row">
+            <h3> Experiments </h3>
+            <hr/>
+            <div class="col-sm-12">
+				<p>Due to lack of publicly available partial high-resolution fingerprint database, we collected an in-house database. We used an optical fingerprint sensor with area 0.24"x0.39". Size of captured images is 480x800. We collected the database of 1800 identities in two steps. In first step, 20 scans on different finger regions were registered as templates for each person. In the second step, same volunteers gave 40 scans with varying finger regions and orientations as test images during matching. Then we randomly sampled 180 identities for testing. For the remaining 1620 identities, we discarded the illegal ones and left 1536 for training.
+				</p>
+                <p>
+				We compared accuracy of the proposed model against minutiae-based algorithm (Fu et al. 2012) (denoted as M) and AKAZE-based algorithm (Mathur et al. 2016) (denoted as A). We also compared accuracy of 3 variants of the proposed model by removing KNN (denoted as OurST), KNN-Triplet (denoted as OurS) and Softmax (denoted as OurKT). Table 1 shows the TAR (True Accept Rate) with FAR (False Accept Rate) under 0.1% and EER (Equal Error Rate) for above algorithms.
+                </p>
+                <p>
+                </p>
+				<div align="center">
+					<i>Table 1: TAR@FAR<=0.1% and EER on our in-house database</i>
+					<br />
+				</div>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                          <th>Models</th>
+                          <th>M</th>
+                          <th>A</th>
+                          <th>OurST</th>
+                          <th>OurS</th>
+                          <th>OurKT</th>
+                          <th>Proposed</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                          <th scope="row">TAR@FAR<=0.1%</th>
+                          <td>28.83%</td>
+                          <td>11.11%</td>
+                          <td>80.78%</td>
+                          <td>76.17%</td>
+                          <td>71.33%</td>
+                          <td><b>89.17%</b></td>
+                        </tr>
+                        <tr>
+                          <th scope="row">EER</th>
+                          <td>20.48%</td>
+                          <td>41.16%</td>
+                          <td>2.83%</td>
+                          <td>3.81%</td>
+                          <td>6.78%</td>
+                          <td><b>1.94%</b></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>
+				Our four models (OurST, OurS, OurKT, Proposed) are trained with the deep learning framework "Caffe" (<b>Jia et al. 2014</b>). Training images are resized to 240x400 and randomly cropped into 224x224 patches during training as data augmentation. We use a momentum of 0.9 and weight decay 0.0001. Batch-size is set to 180. We use Nc=5, Np=25, Nn=55. Weigths of triplet loss and softmax loss are both 1.0. The margin <i>alpha</i> is set to 0.3. We train all networks for 300K iterations with a base learning rate of 0.1 and then multiplies it with 0.1 after 150K, 230K, 270K, 290K iterations.
+                </p>
+				<p>
+				For other methods, images are resized to 500dpi as required. We use source code of (Fu et al. 2012). We detect A-KAZE features used in (Mathur et al. 2016) with OpenCV 3.1.0.
+				</p>
+                <p>
+				As shown in <b>Table 1</b>, all deep models outperform both algorithms based on minutiae and A-KAZE feature, showing great power of deep convolutional network. The average number of minutiae is around 18, which is not enough for minutiae-based algorithms. A-KAZE feature is obviously not suitable for our application. Removing any of the joint components in loss, or KNN sampling policy will make the accuracy degrade, proving the effectiveness of proposed method.
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <h3> Visualizations </h3>
+            <hr/>
+            <div class="col-sm-12">
+				<h4> Matching Results Visualizations </h4>
+				<div align="center">
+					<img src="image/match_pos1.png" height="600">
+					<br />
+					<i>(a)</i>
+					<br />
+					<img src="image/match_pos2.png" height="600">
+					<br />
+					<i>(b)</i>
+					<br />
+					<img src="image/match_pos3.png" height="600">
+					<br />
+					<i>(c)</i>
+					<br />
+					<i>Figure 6: Genuine matches. Matching scores between test image (left one column) and 20 templates (right seven columns) are beneath each template.</i>
+					<br />
+					<br />
+				</div>
+				<h4> CNN Visualizations </h4>
+				<div align="center">
+					<img src="image/filter_conv1.png" height="256">
+					<br />
+					<i>(a) visualization of 'conv1' filters</i>
+					<br />
+					<img src="image/fm_conv1_1.png" height="450">
+					<br />
+					<i>(b) visualization of feature maps after 'conv1' (right four columns) of a given sample (left one column)</i>
+					<br />
+					<img src="image/fm_conv1_2.png" height="450">
+					<br />
+					<i>(b) visualization of feature maps after 'conv1' (right four columns) of a given sample (left one column)</i>
+					<br />
+					<i>Figure 8: Visualizations of 'conv1' (<b>Fig. 4</b>) filters and feature maps after 'conv1'.</i>
+					<br />
+					<br />
+				</div>
+				<h4> Feature Clustering Visualization </h4>
+				<div align="center">
+					<img src="image/tsne.png" height="600">
+					<br />
+					<i>Figure 9: t-sne visualization of features of 30 different identities.</i>
+					<br />
+					<br />
+				</div>
+                <p>
+				<b>Fig 9.</b> shows that features extracted by our model are very well clustered by different identities.
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <h3> Conclusions and Future Work </h3>
+            <hr/>
+            <div class="col-sm-12">
+                <p>
+				In this paper, we propose a novel model to solve partial high-resolution fingerprint matching problem. Experimental results show that proposed model performs better than several existing methods. In future, we decide to investigate:
+				<li>some pre-processing methods such as rough alignment, denoising, enhancing, etc.</li>
+				<li>considering minutiae topology which proposed model can't take fully advantage of.</li>
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <h3> References </h3>
+            <hr/>
+            <div class="col-sm-12">
+				<p>
+				Alcantarilla, P. F., and Solutions, T. 2011. Fast explicit diffusion for accelerated features in nonlinear scale spaces. TPAMI 34(7):1281-1298.
+                </p>
+				<p>
+				Fu, X.; Liu, C.; Bian, J.; and Feng, J. 2012. Spectral correspondence method for fingerprint minutia matching. In ICPR, 1743-1746. IEEE.
+                </p>
+				<p>
+				He, K.; Zhang, X.; Ren, S.; and Sun, J. 2016. Deep Residual Learning for Image Recognition. In CVPR.
+				</p>
+				<p>
+				Jain, A.; Chen, Y; and Demirkus, M. 2007. Pores and Ridges: High-Resolution Fingerprint Matching Using Level 3 Features. TPAMI 29(1):15-27.
+				</p>
+				<p>
+				Jia, Y.; Shelhamer, E.; Donahue, J.; Karayev, S.; Long, J.; Girshick, R.; Guadarrama, S.; and Darrell, T. 2014. Caffe: Convolutional architecture for fast feature embedding. arXiv preprint arXiv:1408.5093.
+				</p>
+				<p>
+				Lowe, D. G. 2004. Distinctive image features from scale invariant keypoints. IJCV 60(2):91-110.
+                </p>
+				<p>
+				Mathur, S.; Vjay, A.; Shah, J.; Das, S.; and Malla, A. 2016. Methodology for partial fingerprint enrollment and authentication on mobile devices. In ICB, 1-8.
+                </p>
+				<p>
+				Schroff, F.; Kalenichenko, D.; and Philbin, J. 2015. Facenet: A unified embedding for face recognition and clustering. In CVPR, 815-823.
+                </p>
+				<p>
+				Yamazaki, M.; Li, D.; Isshiki, T.; and Kunieda, H. 2015. Sift-based algorithm for fingerprint authentication on smartphone. In IC-ICTES, 1-5. IEEE.
+                </p>
+				<p>
+				
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class='main'>
+        <p>Edit by Fandong Zhang 2016</p>
+    </footer>
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/docs.min.js"></script>
   </body>
 </html>
