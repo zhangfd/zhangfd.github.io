@@ -54,7 +54,7 @@ Nowadays, fingerprint authentication in mobile devices becomes increasingly popu
 				</div>
 				<p>
 				<br/>
-Optical fingerprint sensor (<b>Fig. 2(a)</b>) can capture fingerprints with resolution as high as 2000dpi (<b>Fig. 1</b>), providing very rich details such as pores, scars and so on (<b>Fig. 2(b)</b>). These features can make up for the insufficiency of minutiae. Moreover, with these details, fingerprint authentication system is much harder to crack. 
+Optical fingerprint sensor (<b>Fig. 2(a)</b>) can capture fingerprints with resolution as high as 2000dpi (<b>Fig. 1</b>), providing very rich details such as pores, scars and so on (<b>Fig. 2(b)</b>). These features can make up for the insufficiency of minutiae. Moreover, with these details, fingerprint authentication system is much harder to crack. Besides, optical fingerprint sensor suffers less from dry-wet fingers which makes fingerprint authentication system more robust.
 				</p>
 				<div class="row">
 					<div class="col-xs-6">
@@ -82,7 +82,7 @@ Optical fingerprint sensor (<b>Fig. 2(a)</b>) can capture fingerprints with reso
             <h3> Motivation and Contributions </h3>
             <hr/>
             <div class="col-sm-12">
-                <p>Existing fingerprint authentication algorithms are mainly based on minutiae matching (<b>Fu et al. 2012</b>). Their accuracy degrades significantly for partial-to-partial matching when minutiae are relatively inadequate. Subtle features in high-resolution fingerprint images can be helpful to authentication. However, making use of these features is challenging, since they are unstable and irregular. There are very few researches about high-resolution fingerprint matching. (<b>Jain, Chen and Demirkus 2007</b>) proposes methods to detect and match pores. But there are so many kinds of subtle features that it is tedious to design methods to detect and match them one by one.</p>
+                <p>Existing fingerprint authentication algorithms are mainly based on minutiae matching (<b>Fu et al. 2012</b>). Their accuracy degrades significantly for partial-to-partial matching when minutiae are relatively inadequate. Subtle features in high-resolution fingerprint images can be helpful to authentication. However, making use of these features is challenging, since they are unstable and irregular. There are very few researches about high-resolution fingerprint matching. (<b>Jain, Chen and Demirkus 2007</b>) proposes methods to detect and match pores to help minutiae matching. However, there are so many kinds of subtle features that it is tedious to design methods to detect and match them one by one.</p>
 				<p>Features learned by deep convolutional neural network (CNN) have been proved more effective and robust than handcrafted features for kinds of image recognition tasks, such as person re-identification, face recognition, and so on. Inspired by these researches, in this paper, we propose a novel model named Deep Joint KNN-Triplet Embedding (<b>Fig. 3</b>) to learn features directly from scratch in an end-to-end manner via a well-designed deep CNN.</p>
                 <p><b>We have two major contributions</b>. First, we employ a deep CNN with triplet loss to embed fingerprint images into an Euclidean space. Moreover, we carefully design a K-Nearest-Neighbor policy to select proper triplets for training. Second, by exploiting the advantages of triplet loss and softmax loss, we joint both losses to make our model converge fast and stably.</p>
 				
