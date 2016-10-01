@@ -31,7 +31,7 @@
                 <p><b>Fandong Zhang</b></p>
                 <p>PhD Student</p>
                 <p>Phone: +8613621040898</p>
-                <p>Email: zhangfandong@pku.edu.cn</p>
+                <p>Email: zhangfandong@pku.edu.cn, zhangfdxk@163.com</p>
             </div>
             <div class="col-sm-8">
                 <p> . </p>
@@ -100,7 +100,7 @@ Optical fingerprint sensor (<b>Fig. 2(a)</b>) can capture fingerprints with reso
             <hr/>
             <div class="col-sm-12">
                 <p>
-				We design a 38-layer residual neural network (<b>He et al. 2016</b>) (<b>Fig. 4</b>). Let f(x) denote the feature embedding. It embeds a fingerprint image x into a d-dimension Euclidean space. In addition, we constrain ||f(x)||=1 suggested by (Schroff, Kalenichenko, and Philbin 2015). The following sections describe how we employ KNN-Triplet Embedding and Joint Feature Learning.
+				We design a 38-layer residual neural network (<b>He et al. 2016</b>) all by ourselves (<b>Fig. 4</b>). Let f(x) denote the feature embedding. It embeds a fingerprint image x into a d-dimension Euclidean space. In addition, we constrain ||f(x)||=1 suggested by (Schroff, Kalenichenko, and Philbin 2015). The following sections describe how we employ KNN-Triplet Embedding and Joint Feature Learning.
                 </p>
 				<div align="center">
 					<img src="image/cnn.png" height="400">
@@ -208,7 +208,7 @@ Optical fingerprint sensor (<b>Fig. 2(a)</b>) can capture fingerprints with reso
                     </tbody>
                 </table>
                 <p>
-				Our four models (OurST, OurS, OurKT, Proposed) are trained with the deep learning framework "Caffe" (<b>Jia et al. 2014</b>). Training images are resized to 240x400 and randomly cropped into 224x224 patches during training as data augmentation. We use a momentum of 0.9 and weight decay 0.0001. Batch-size is set to 180. We use Nc=5, Np=25, Nn=55. Weigths of triplet loss and softmax loss are both 1.0. The margin <i>alpha</i> is set to 0.3. We train all networks for 300K iterations with a base learning rate of 0.1 and then multiplies it with 0.1 after 150K, 230K, 270K, 290K iterations.
+				Our four models (OurST, OurS, OurKT, Proposed) are trained with the deep learning framework "Caffe" (<b>Jia et al. 2014</b>). Training images are resized to 240x400 and randomly cropped into 224x224 patches as data augmentation, which makes the network robust to small translation. We use a momentum of 0.9 and weight decay 0.0001. Batch-size is set to 180. We use Nc=5, Np=25, Nn=55. Weigths of triplet loss and softmax loss are both 1.0. The margin <i>alpha</i> is set to 0.3. We train all networks without any pretraining for 300K iterations with a base learning rate of 0.1 and then multiplies it with 0.1 after 150K, 230K, 270K, 290K iterations.
                 </p>
 				<p>
 				For other methods, images are resized to 500dpi as required. We use source code of (Fu et al. 2012). We detect A-KAZE features used in (Mathur et al. 2016) with OpenCV 3.1.0.
